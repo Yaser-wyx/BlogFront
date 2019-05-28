@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'FZKT';
+  src: url('../font/FZKTJW.TTF') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+}
+
+@font-face {
+  font-family: 'ST';
+  src: url('../font/ST.otf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+}
+
+.web-font-FZKT {
+  font-family: "FZKT", serif !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.web-font-ST {
+  font-family: "ST", serif !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

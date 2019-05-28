@@ -1,9 +1,23 @@
 <template>
+  <div style="height: 20000px;">
+    <headerMain>
+
+    </headerMain>
+  </div>
 </template>
 
 <script>
 
-export default {
+  import headerMain from "../components/head/headerMain";
 
-}
+  export default {
+    components: {headerMain},
+    mounted() {
+
+    },
+    methods: {}
+  }
 </script>
+<style scoped>
+
+</style>
