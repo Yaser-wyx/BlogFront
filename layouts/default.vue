@@ -1,9 +1,16 @@
 <template>
   <v-app>
+    <toolbar></toolbar>
     <nuxt/>
   </v-app>
 </template>
 
 <script>
-  export default {}
+  import toolbar from '../components/head/toolbar'
+
+  export default {
+    components: {
+      toolbar,
+    },
+  }
 </script>

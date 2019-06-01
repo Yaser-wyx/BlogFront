@@ -21,7 +21,7 @@ export default {
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       },
-      {rel: "stylesheet", href: 'https://at.alicdn.com/t/font_1211765_at68ju1r8n6.css'}
+      {rel: "stylesheet", href: 'https://at.alicdn.com/t/font_1211765_fb7cioldidj.css'}
     ]
   },
 
@@ -35,8 +35,9 @@ export default {
   */
   css: [
     '~/assets/style/app.styl',
-    {src:"~/assets/style/font.css"},
-    {src:'~/assets/style/hover.css'}
+    {src: "~/assets/style/font.css"},
+    {src: '~/assets/style/hover.css'},
+    {src: '~/assets/style/comment.css'}
   ],
 
   /*

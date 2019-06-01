@@ -1,37 +1,49 @@
 <template>
   <div class="my-head">
-    <toolbar></toolbar>
     <div class="mask">
-      <div class="content">
-        <div class="header-text web-font-ST font-1">
+
+      <div class="content" v-if="!needSlot">
+        <div class="header-text web-font-songti font-1">
           Yaser的个人博客
         </div>
-        <div class=" sub-text header-text web-font-ST mt-3">
+        <div class=" sub-text header-text web-font-songti mt-3">
           Learning, thinking and reading.
         </div>
         <div class="header-icon">
-          <v-hover>
-            <v-icon  slot-scope="{ hover }" :color="hover?'white':'rgba(255,255,255,0.7)'">iconfont blog-github</v-icon>
+          <v-hover v-for="(item,index) in icons" :key="index">
+            <v-icon :class="{'mx-4':index===1}" slot-scope="{ hover }" :color="hover?'white':'rgba(255,255,255,0.7)'">
+              iconfont {{item}}
+            </v-icon>
           </v-hover>
-          <v-icon class="mx-4" color="rgba(255,255,255,0.7)">iconfont blog-email</v-icon>
-          <v-icon color="rgba(255,255,255,0.7)">iconfont blog-qq</v-icon>
+        </div>
+        <div class="head-avatar">
+          <headerAvatar></headerAvatar>
         </div>
       </div>
-      <slot></slot>
+      <slot v-else></slot>
     </div>
-    <v-parallax src="/img/header/snow-mountain.jpg"></v-parallax>
+    <v-parallax :src="img"></v-parallax>
   </div>
 
 
 </template>
 
 <script>
-  import toolbar from './toolbar'
+  import headerAvatar from "./headerAvatar";
 
   export default {
     name: "headerMain",
+    props: {
+      img: {type: String},
+      needSlot: {type: Boolean, default: false}
+    },
     components: {
-      toolbar
+      headerAvatar,
+    },
+    data: function () {
+      return {
+        icons: ['blog-github', 'blog-email', 'blog-qq']
+      }
     }
   }
 </script>
@@ -76,5 +88,10 @@
 
   .sub-text {
     letter-spacing: 4px;
+  }
+
+  .head-avatar {
+    margin-left: 20vh;
+    margin-top: 50px;
   }
 </style>
