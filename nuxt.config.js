@@ -3,7 +3,10 @@ import pkg from './package'
 
 export default {
   mode: 'universal',
-
+  server: {
+    port: 3000,
+    host: '127.0.0.1'
+  },
   /*
   ** Headers of the page
   */
@@ -46,6 +49,8 @@ export default {
   plugins: [
     '@/plugins/vuetify',
     {src: '~/plugins/velocity', ssr: false},
+    {src: '~/plugins/utils.js', ssr: false},//自定义工具箱
+
   ],
 
   /*
@@ -55,6 +60,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/apollo'
   ],
   /*
   ** Axios module configuration
@@ -62,7 +68,30 @@ export default {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
+  apollo: {
+    tokenName: 'blog', // optional, default: apollo-token
+    // optional
+    errorHandler: '~/plugins/apollo-error-handler.js',
+    // required
+    clientConfigs: {
+      default: {
+        // required
+        httpEndpoint: 'http://localhost:8080/api',
+        // optional
+        // See https://www.apollographql.com/docs/link/links/http.html#options
+       /* httpLinkOptions: {
+          credentials: 'same-origin'
+        },*/
+        // You can use `wss` for secure connection (recommended in production)
+        // Use `null` to disable subscriptions
+        // LocalStorage token
+        tokenName: 'blog', // optional
+        // Enable Automatic Query persisting with Apollo Engine
+        // Use websockets for everything (no HTTP)
+        // You need to pass a `wsEndpoint` for this to work
+      }
+    }
+  },
   /*
   ** Build configuration
   */

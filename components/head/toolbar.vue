@@ -4,7 +4,7 @@
     </div>
     <div class="content">
       <div v-for="(item,index) in toolbar" @click="change(index)" :key="index" :id="index"
-           class="hvr-underline-from-center mx-3 my-item">
+           class="hvr-underline-from-center mx-4 my-item">
         <v-icon size="20" color="white">{{item.icon}}</v-icon>
         <span class="item-text web-font-songti ml-2">{{item.text}}</span>
       </div>

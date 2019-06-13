@@ -1,6 +1,6 @@
 <template>
   <div class="header-avatar">
-    <img src="/img/header/avatar.jpg" width="170" height="170" alt="">
+    <img src="/img/header/avatar.jpg" width="140" height="140" alt="">
   </div>
 </template>
 
@@ -12,8 +12,8 @@
 
 <style scoped>
   .header-avatar {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     padding: 5px;
     border-radius: 10px;
     background-color: white;

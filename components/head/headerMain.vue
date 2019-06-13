@@ -1,13 +1,13 @@
 <template>
-  <div class="my-head">
-    <div class="mask">
+  <div class="my-head" :style="{'height':height+'px'}">
+    <div class="mask" :style="{'height':height+'px'}">
 
       <div class="content" v-if="!needSlot">
         <div class="header-text web-font-songti font-1">
-          Yaser的个人博客
+          {{headTitle}}
         </div>
         <div class=" sub-text header-text web-font-songti mt-3">
-          Learning, thinking and reading.
+          {{headText}}
         </div>
         <div class="header-icon">
           <v-hover v-for="(item,index) in icons" :key="index">
@@ -22,7 +22,7 @@
       </div>
       <slot v-else></slot>
     </div>
-    <v-parallax :src="img"></v-parallax>
+    <v-parallax :src="img" :height="height"></v-parallax>
   </div>
 
 
@@ -35,14 +35,20 @@
     name: "headerMain",
     props: {
       img: {type: String},
-      needSlot: {type: Boolean, default: false}
+      needSlot: {type: Boolean, default: false},
+      height: {
+        type: String, default: "500"
+      }
     },
     components: {
       headerAvatar,
     },
     data: function () {
       return {
-        icons: ['blog-github', 'blog-email', 'blog-qq']
+        icons: ['blog-github', 'blog-email', 'blog-qq'],
+        headTitle: "Yaser的个人博客",
+        headText: "Learning, thinking and reading."
+
       }
     }
   }
@@ -51,7 +57,6 @@
 <style scoped>
   .my-head {
     width: 100%;
-    height: 500px;
     position: relative;
   }
 
@@ -59,7 +64,6 @@
     position: absolute;
     background-color: rgba(86, 101, 115, 0.34);
     width: 100%;
-    height: 500px;
     top: 0;
     z-index: 1;
   }
@@ -91,7 +95,8 @@
   }
 
   .head-avatar {
-    margin-left: 20vh;
-    margin-top: 50px;
+    position: absolute;
+    bottom: -30px;
+    left: 30vh;
   }
 </style>

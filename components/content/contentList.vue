@@ -1,17 +1,19 @@
 <template>
   <div class="content-list">
-    <card v-for="(item,index) in card" :key="index" :card="item" :index="index"
+    <card v-for="(item,index) in articles.articleList" :key="index" :article="item" :index="index"
           :color="colors[index%colors.length]"></card>
+
     <div class="page">
       <div class="page-num web-font-songti">
-        Page {{pages.page}} / {{pages.total}}
+        Page {{articles.page.nowPage}} / {{articles.page.totalPages}}
       </div>
       <div class="page-btns right web-font-songti">
-        <div class="page-btn my-inline-block hvr-underline-from-left" v-if="pages.page>1">
-          <v-icon>iconfont blog-page-left</v-icon>
+        <div class="page-btn my-inline-block hvr-underline-from-left" v-if="articles.page.nowPage>1"
+             @click="page.page--">
           上一页
         </div>
-        <div class="ml-2 page-btn my-inline-block hvr-underline-from-right" v-if="pages.page<pages.total">
+        <div class="ml-2 page-btn my-inline-block hvr-underline-from-right"
+             v-if="articles.page.nowPage<articles.page.totalPages" @click="page.page++">
           下一页
         </div>
       </div>
@@ -21,16 +23,27 @@
 
 <script>
   import card from "./card";
+  import {ARTICLE_LIST} from "../../graphql";
+
 
   export default {
     name: "contentCard",
     components: {card},
+    apollo: {
+      $loadingKey: 'loading',
+      articles: {
+        query: ARTICLE_LIST,
+        variables() {
+          return {
+            page: this.page.page
+          }
+        }
+      }
+    },
     data: function () {
       return {
-        pages: {
-          total: 5,
-          page: 1
-        },
+        loading: 0,
+        page: {page: 1},
         colors: [
           {
             circleColor: '#FE6061',
@@ -48,40 +61,7 @@
             circleColor: '#74CEE7',
             lineColor: 'rgba(116, 206, 231, 0.15)'
           }
-        ],
-        card: [{
-          title: 'CSAPP第一章 数据表示',
-          text: '曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的阅读体验。曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的...',
-          createdAt: '2019-05-25',
-          updateAt: '2019-05-25',
-          classifyAt: '读书笔记',
-          words: 345,
-
-        },
-          {
-            title: 'CSAPP第一章 数据表示',
-            text: '曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的阅读体验。曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的...',
-            createdAt: '2019-05-25',
-            updateAt: '2019-05-25',
-            classifyAt: '读书笔记',
-            words: 345,
-          },
-          {
-            title: 'CSAPP第一章 数据表示',
-            text: '曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的阅读体验。曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的...',
-            createdAt: '2019-05-25',
-            updateAt: '2019-05-25',
-            classifyAt: '读书笔记',
-            words: 345
-          },
-          {
-            title: 'CSAPP第一章 数据表示',
-            text: '曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的阅读体验。曾经的《深入理解计算机系统》课程笔记重新启航出发，更清晰的知识结构，更细致的概念分析，更紧密的课程关联。从文字到图片完全原创，希望能给大家不一样的...',
-            createdAt: '2019-05-25',
-            updateAt: '2019-05-25',
-            classifyAt: '读书笔记',
-            words: 345
-          }]
+        ]
       }
 
     }
@@ -102,9 +82,10 @@
     text-align: center;
   }
 
-  .page-btn{
+  .page-btn {
     transition: 0.3s;
   }
+
   .page-btn:hover {
     cursor: pointer;
     color: #808B96;
@@ -112,7 +93,7 @@
 
   .content-list {
     width: 100%;
-    padding-top: 80px;
+    /*padding-top: 80px;*/
   }
 
 </style>
