@@ -1,7 +1,7 @@
 <template>
-  <div class="my-card">
+  <div class="my-card" @click="select">
     <div class="background" :class="{'blur':needBlur}" :style="{'background-image':'url('+imgSrc+')'}"></div>
-    <div class="mask web-font-kaiti" @mouseenter="hover(false)" @mouseleave="hover(true)">{{title}}</div>
+    <div class="mask web-font-kaiti" @mouseenter="hover(true)" @mouseleave="hover(false)">{{title}}</div>
   </div>
 </template>
 
@@ -9,10 +9,6 @@
   export default {
     name: "classifyCard",
     props: {
-      needBlur: {
-        type: Boolean,
-        default: true
-      },
       imgSrc: {
         type: String,
       },
@@ -22,20 +18,31 @@
       index: {
         type: Number
       },
-      isSelect:{
+      isSelect: {
         type: Boolean,
         default: false
       }
     },
-    methods: {
-      hover(needBlur) {
-        if (!this.isSelect) {
-          this.$emit("hover", this.index, needBlur)
+    computed: {
+      needBlur: function () {
+        if (this.isSelect) {
+          return false
+        } else if (this.isHover) {
+          return false
         }
+        return true
+      }
+    },
+    methods: {
+      hover(isHover) {
+        this.isHover = isHover
+      },
+      select() {
+        this.$emit("select", this.index)
       }
     },
     data: function () {
-      return {}
+      return {isHover: false}
     }
   }
 </script>

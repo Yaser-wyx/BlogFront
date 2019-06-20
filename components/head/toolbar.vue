@@ -1,5 +1,5 @@
 <template>
-  <div class="toolbar">
+  <div class="toolbar" id="toolbar">
     <div class="back-mask" id="mask">
     </div>
     <div class="content">
@@ -21,7 +21,7 @@
       this.toolbar.forEach((item, index) => {
         if (item.to === path) {
           this.change(index)
-          return
+          return;
         }
       })
     },
@@ -39,7 +39,7 @@
       return {
         toolbar: [
           {icon: 'iconfont blog-home', text: "首页", to: '/'},
-          {icon: 'iconfont blog-learning', text: "学海", to: '/learning'},
+          {icon: 'iconfont blog-learning', text: "学海", to: '/learning/0'},
           {icon: 'iconfont blog-media', text: "影音", to: '/entertainment'},
           {icon: 'iconfont blog-file', text: "归档", to: '/file'},
         ]

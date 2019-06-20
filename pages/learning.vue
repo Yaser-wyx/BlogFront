@@ -12,30 +12,23 @@
     <div class="classify">
       <div class="my-inline-block web-font-songti classify-title">分类：</div>
       <div class="my-inline-block ml-3" v-for="(item,index) in classifyCardConfig" :key="index">
-        <classifyCard :need-blur="item.needBlur" @hover="hover" :is-select="index===nowSelect"
+        <classifyCard @select="select" :is-select="index===nowSelect"
                       :img-src="item.imgSrc" :title="item.title" :index="index"></classifyCard>
       </div>
     </div>
-    <div class="mt-4">
-      <contentCard></contentCard>
-    </div>
+    <nuxt-child></nuxt-child>
   </div>
 </template>
 
 <script>
 
   import headerMain from "../components/head/headerMain";
-  import contentCard from "../components/content/contentList";
   import headerAvatar from "../components/head/headerAvatar";
   import classifyCard from "../components/content/classifyCard";
 
   export default {
     name: "learning",
-    components: {headerMain, contentCard, headerAvatar, classifyCard},
-    mounted() {
-
-    },
-
+    components: {headerMain, headerAvatar, classifyCard},
     data: function () {
       return {
         headText: "古语云：“书山有路勤为径，学海无涯苦作舟”。对于这句的前半部分，我十分赞同，因为学习的确没有捷径可言，但对于后半句我并不十分认可，我认为学习不能一味地苦学，苦学是很难让人保持学习的积极性，相反我们应该从学习中找到乐趣，将书中的知识理解，弄明白应该是一件快乐的事情，所以乐学才是学习之道。",
@@ -60,16 +53,9 @@
       }
     },
     methods: {
-      hover(index, value) {
-        console.log(index, value)
-        this.classifyCardConfig[index].needBlur = value
-        console.log(this.classifyCardConfig[index])
-        /*  let temp = this.$utils.clone(this.classifyCardConfig[index])
-          temp.needBlur = value
-          this.classifyCardConfig.splice(index, 1, temp)
-          console.log(this.classifyCardConfig[index])*/
-        // this.set(this.classifyCardConfig, index, temp)
-
+      select(index) {
+        this.nowSelect = index
+        this.$router.push(`/learning/${index}`)
       }
     }
   }

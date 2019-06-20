@@ -18,7 +18,7 @@
           更新于:<U class="ml-2">{{article.updatedAt}}</U></div>
         <div class="my-inline-block ml-4">
           <v-icon size="16">iconfont blog-folder</v-icon>
-          分类于:<U class="ml-2">{{article.type}}</U></div>
+          分类于:<U class="ml-2">{{article.classify}}</U></div>
         <div class="my-inline-block ml-4">
           <v-icon size="16">iconfont blog-letter</v-icon>
           本文字数:<span class="ml-2">{{article.words}}</span></div>
@@ -26,8 +26,8 @@
       <div class="card-text web-font-kaiti">
         <p>{{article.summary}}</p>
       </div>
-      <div class="card-read-more web-font-heiti ">
-        <span class="hvr-underline-from-left">阅读全文 ></span>
+      <div class="card-read-more web-font-heiti">
+        <span class="hvr-underline-from-left" @click="read">阅读全文 ></span>
       </div>
     </div>
   </div>
@@ -40,6 +40,11 @@
       article: {type: Object},
       color: {type: Object},
       index: {type: Number}
+    },
+    methods:{
+      read(){
+        this.$router.push(`/articles/${this.article.id}`)
+      }
     }
   }
 </script>

@@ -11,13 +11,7 @@
 
   import headerMain from "../components/head/headerMain";
   import contentCard from "../components/content/contentList";
-  import gql from 'graphql-tag'
 
-  export const hello = gql`
-    query{
-      hello
-    }
-  `
   export default {
     data: function () {
       return {
@@ -25,12 +19,6 @@
       }
     },
     components: {headerMain, contentCard},
-    /*apollo: {
-      $loadingKey: 'loading',
-      hello: {
-        query: hello
-      }
-    },*/
     mounted() {
       // console.log(this.$apollo.queries.hello)
     },

@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-export const ARTICLE_LIST=gql`
-  query getArticleList($page: Int!){
-      articles(page:{page:$page}){
+export const ARTICLE_LIST = gql`
+  query getArticleList($page: Int!,$classifyIndex:Int!){
+      articles(page:{page:$page},classifyIndex:$classifyIndex){
         page{
           nowPage
           total
@@ -10,7 +10,7 @@ export const ARTICLE_LIST=gql`
         }
         articleList{
           id
-          type
+          classify
           createdAt
           updatedAt
           title
@@ -18,6 +18,22 @@ export const ARTICLE_LIST=gql`
           words
           views
         }
+      }
+    }
+  `;
+
+export const ARTICLE_BY_ID = gql`
+    query article($articleId: String!){
+      article(articleId:$articleId){
+        id
+        classify
+        text
+        title
+        summary
+        words
+        views
+        createdAt
+        updatedAt
       }
     }
   `;
