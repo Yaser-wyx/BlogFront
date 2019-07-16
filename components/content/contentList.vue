@@ -1,28 +1,28 @@
 <template>
-   <div v-if="$apollo.queries.articles.loading">
-     loading...
-     <!-- todo 加入载入动画-->
-   </div>
-    <div class="content-list" v-else>
-      <card v-for="(item,index) in articles.articleList" :key="index" :article="item" :index="index"
-            :color="colors[index%colors.length]"></card>
+  <div v-if="$apollo.queries.articles.loading">
+    loading...
+    <!-- todo 加入载入动画-->
+  </div>
+  <div class="content-list" v-else>
+    <card v-for="(item,index) in articles.articleList" :key="index" :article="item" :index="index"
+          :color="colors[index%colors.length]"></card>
 
-      <div class="page">
-        <div class="page-num web-font-songti">
-          Page {{articles.page.nowPage}} / {{articles.page.totalPages}}
+    <div class="page">
+      <div class="page-num web-font-songti">
+        Page {{articles.page.nowPage}} / {{articles.page.totalPages}}
+      </div>
+      <div class="page-btns right web-font-songti">
+        <div class="page-btn my-inline-block hvr-underline-from-left" v-if="articles.page.nowPage>1"
+             @click="page.page--">
+          上一页
         </div>
-        <div class="page-btns right web-font-songti">
-          <div class="page-btn my-inline-block hvr-underline-from-left" v-if="articles.page.nowPage>1"
-               @click="page.page--">
-            上一页
-          </div>
-          <div class="ml-2 page-btn my-inline-block hvr-underline-from-right"
-               v-if="articles.page.nowPage<articles.page.totalPages" @click="page.page++">
-            下一页
-          </div>
+        <div class="ml-2 page-btn my-inline-block hvr-underline-from-right"
+             v-if="articles.page.nowPage<articles.page.totalPages" @click="page.page++">
+          下一页
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -42,7 +42,8 @@
             page: this.page.page,
             classifyIndex: this.classifyIndex
           }
-        }
+        },
+        fetchPolicy: 'network-only'
       }
     },
     props: {

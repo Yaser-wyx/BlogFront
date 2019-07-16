@@ -37,3 +37,17 @@ export const ARTICLE_BY_ID = gql`
       }
     }
   `;
+export const ARTICLE_NEARBY = gql`
+    query articleNearby($articleId: String!){
+      articleNearby(articleId:$articleId){
+        pre{
+          id
+          title
+        }
+        next{
+          id
+          title
+        }
+      }
+    }
+  `;

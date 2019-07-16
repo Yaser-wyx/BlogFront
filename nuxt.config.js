@@ -1,8 +1,9 @@
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import pkg from './package'
+import {ApolloLink} from "apollo-link";
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   server: {
     port: 3000,
     host: '127.0.0.1'
@@ -24,7 +25,7 @@ export default {
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       },
-      {rel: "stylesheet", href: 'https://at.alicdn.com/t/font_1211765_fb7cioldidj.css'}
+      {rel: "stylesheet", href: 'https://at.alicdn.com/t/font_1211765_8m8skecslj4.css'}
     ]
   },
 
@@ -76,19 +77,8 @@ export default {
     clientConfigs: {
       default: {
         // required
-        httpEndpoint: 'http://localhost:8080/api',
-        // optional
-        // See https://www.apollographql.com/docs/link/links/http.html#options
-       /* httpLinkOptions: {
-          credentials: 'same-origin'
-        },*/
-        // You can use `wss` for secure connection (recommended in production)
-        // Use `null` to disable subscriptions
-        // LocalStorage token
+        httpEndpoint: 'http://localhost:8080/graphql/api',
         tokenName: 'blog', // optional
-        // Enable Automatic Query persisting with Apollo Engine
-        // Use websockets for everything (no HTTP)
-        // You need to pass a `wsEndpoint` for this to work
       }
     }
   },

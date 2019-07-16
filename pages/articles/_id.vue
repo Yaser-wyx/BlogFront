@@ -5,7 +5,6 @@
   </div>
   <div v-else>
     <headerMain height="400" need-slot img="/img/header/reading.jpg">
-
       <div class="web-font-songti head-title">
         {{article.title}}
       </div>
@@ -15,13 +14,30 @@
     </headerMain>
     <!--    <articleToc :toc="toc"></articleToc>-->
     <div v-html="render" v-scroll="onScroll" id="render" class="mark-down web-font-pingfang-thin"></div>
+    <div v-if="!$apollo.queries.articleNearby.loading" class="pre-next-div web-font-kaiti">
+      <v-hover v-if="articleNearby.pre!==null">
+        <div slot-scope="{ hover }" class="pre-next left"
+             @click="goto(articleNearby.pre.id)">
+          <v-icon :color="hover?'#2E4053':'#85929E'">iconfont blog-page-left</v-icon>
+          <div class="my-inline-block">{{articleNearby.pre.title}}</div>
+        </div>
+      </v-hover>
 
+      <v-hover v-if="articleNearby.next!==null">
+        <div slot-scope="{ hover }" class="pre-next right"
+             @click="goto(articleNearby.next.id)">
+          <div class="my-inline-block">{{articleNearby.next.title}}</div>
+          <v-icon :color="hover?'#2E4053':'#85929E'">iconfont blog-page-right</v-icon>
+        </div>
+      </v-hover>
+
+    </div>
   </div>
 
 </template>
 
 <script>
-  import {ARTICLE_BY_ID} from "../../graphql";
+  import {ARTICLE_BY_ID, ARTICLE_NEARBY} from "../../graphql";
   import headerMain from "../../components/head/headerMain";
   import headerAvatar from "../../components/head/headerAvatar";
   import {hash} from "../../utils";
@@ -40,6 +56,15 @@
           return {
             articleId: this.$route.params.id
           }
+        },
+        fetchPolicy: 'network-only'
+      },
+      articleNearby: {
+        query: ARTICLE_NEARBY,
+        variables() {
+          return {
+            articleId: this.$route.params.id
+          }
         }
       }
     },
@@ -48,26 +73,25 @@
         loading: 0,
         render: "",
         tocIndex: 0,
-        toc: []
+        toc: [],
       }
     },
-    mounted() {
-      let timer = setInterval(() => {
-        if (!this.$apollo.queries.article.loading) {
-          clearInterval(timer)
-          this.get()
-        }
-      }, 20)
+    watch: {
+      article: function () {
+        this.get()
+      }
     },
     methods: {
+      goto(articleId) {
+        this.$router.push(`/articles/${articleId}`)
+      },
       get() {
-
         // let lexer = marked.lexer(x)
         let toc = [];
         let render = new marked.Renderer();
         render.heading = (text, level) => {
           let id = hash(text);
-          this.toc.push({text: text, level: level})
+          this.toc.push({text: text, level: level});
           let dom = `
           <h${level} id="${id}">
             <a  class="anchor" href="#${id}">
@@ -127,6 +151,23 @@
     margin-top: 60px;
     color: #555;
 
+  }
+
+  .pre-next-div {
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    /*color: #ccc;*/
+  }
+
+  .pre-next:hover {
+    color: #2E4053 !important;
+  }
+
+  .pre-next {
+    transition: linear 0.3s;
+    color: #85929E !important;
+    cursor: pointer;
   }
 
   .mark-down /deep/ p {

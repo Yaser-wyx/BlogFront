@@ -12,21 +12,31 @@
       <div class="card-msg mt-2 web-font-heiti">
         <div class="my-inline-block">
           <v-icon size="16">iconfont blog-date</v-icon>
-          发表于:<U class="ml-2">{{article.createdAt}}</U></div>
+          <div class="my-inline-block">发表于:</div>
+          <U class="ml-2">{{article.createdAt}}</U></div>
         <div class="my-inline-block ml-4">
           <v-icon size="16">iconfont blog-update</v-icon>
-          更新于:<U class="ml-2">{{article.updatedAt}}</U></div>
+          <div class="my-inline-block">更新于:</div>
+          <U class="ml-2">{{article.updatedAt}}</U></div>
         <div class="my-inline-block ml-4">
           <v-icon size="16">iconfont blog-folder</v-icon>
-          分类于:<U class="ml-2">{{article.classify}}</U></div>
+          <div class="my-inline-block">分类于:</div>
+          <U class="ml-2">{{article.classify}}</U></div>
         <div class="my-inline-block ml-4">
           <v-icon size="16">iconfont blog-letter</v-icon>
-          本文字数:<span class="ml-2">{{article.words}}</span></div>
+          <div class="my-inline-block">本文字数:</div>
+          <span class="ml-2" style="vertical-align: top">{{article.words}}</span>
+        </div>
+
       </div>
       <div class="card-text web-font-kaiti">
         <p>{{article.summary}}</p>
       </div>
-      <div class="card-read-more web-font-heiti">
+      <div class=" view">
+        <v-icon size="16" color="#CCD1D1">iconfont blog-eye</v-icon>
+        <U class="ml-2" style="vertical-align: top">{{article.views}}</U>
+      </div>
+      <div class="card-read-more web-font-heiti -block">
         <span class="hvr-underline-from-left" @click="read">阅读全文 ></span>
       </div>
     </div>
@@ -41,8 +51,8 @@
       color: {type: Object},
       index: {type: Number}
     },
-    methods:{
-      read(){
+    methods: {
+      read() {
         this.$router.push(`/articles/${this.article.id}`)
       }
     }
@@ -52,7 +62,7 @@
 <style scoped>
 
   .card {
-    width: 135vh;
+    width: 137vh;
     margin-right: auto;
     height: 250px;
     margin-left: auto;
@@ -69,7 +79,11 @@
     text-align: right;
     color: #99A3A4;
     font-size: 14px;
-    margin-top: 10px;
+  }
+
+  .view {
+    color: #CCD1D1;
+    float: left;
   }
 
   .card-read-more:hover {
@@ -89,7 +103,7 @@
 
   .card-right {
     transition: 0.3s;
-    width: calc(135vh - 170px);
+    width: calc(137vh - 170px);
     height: 250px;
     background-color: white;
     border-radius: 5px;
@@ -112,7 +126,7 @@
   .card-text p {
     overflow: hidden;
     line-height: 25px;
-    max-height: 75px;
+    height: 75px;
     letter-spacing: 4px;
   }
 
@@ -135,4 +149,13 @@
   .card-right:hover {
     box-shadow: 0 0 30px 1px rgba(156, 202, 183, 0.35);
   }
+
+  i {
+    line-height: 20px;
+  }
+
+  U {
+    vertical-align: top;
+  }
+
 </style>
